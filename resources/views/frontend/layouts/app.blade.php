@@ -55,11 +55,10 @@
 
     <!-- Favicon -->
     @php
-        $site_icon = uploaded_asset(get_setting('site_icon'));
+        $fav_icon = uploaded_asset(get_setting('fav_icon'));
     @endphp
-    <link rel="icon" href="{{ $site_icon }}">
-    <link rel="apple-touch-icon" href="{{ $site_icon }}">
-
+    <link rel="icon" href="{{ $fav_icon }}">
+    <link rel="apple-touch-icon" href="{{ $fav_icon }}">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

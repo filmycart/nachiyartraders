@@ -101,7 +101,7 @@
             </div>
 
             <!-- Support Policy -->
-            <div class="col-lg-3 col-6 policy-file">
+<!--             <div class="col-lg-3 col-6 policy-file">
                 <a class="text-reset h-100  border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('supportpolicy') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32.002" height="32.002" viewBox="0 0 32.002 32.002">
                         <g id="Group_24198" data-name="Group 24198" transform="translate(-1113.999 -2398)">
@@ -115,7 +115,7 @@
                     </svg>
                     <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('Support Policy') }}</h4>
                 </a>
-            </div>
+            </div> -->
 
             <!-- Privacy Policy -->
             <div class="col-lg-3 col-6 policy-file">
@@ -405,7 +405,7 @@
                             <p  class="fs-13 text-soft-light">{{ get_setting('contact_phone') }}</p>
                         </li>
                         <li class="mb-2">
-                            <p  class="fs-13 text-secondary mb-1">{{ translate('Email') }}</p>
+                            <p  class="fs-13 text-secondary mb-1">{{ translate('E-Mail') }}</p>
                             <p  class="">
                                 <a href="mailto:{{ get_setting('contact_email') }}" class="fs-13 text-soft-light hov-text-primary">{{ get_setting('contact_email')  }}</a>
                             </p>

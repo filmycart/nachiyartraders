@@ -68,9 +68,18 @@ class HomeController extends Controller
 
     public function load_newest_product_section()
     {
-        $newest_products = Cache::remember('newest_products', 3600, function () {
+        /*$newest_products = Cache::remember('newest_products', 3600, function () {
             return filter_products(Product::latest())->limit(12)->get();
         });
+
+        return view('frontend.' . get_setting('homepage_select') . '.partials.newest_products_section', compact('newest_products'));*/
+
+        $today = strtotime(date('Y-m-d H:i:s'));
+
+        $newest_products = Product::where('published', 1)
+            ->orderBy('created_at', 'desc')
+            ->limit(12)
+            ->get();
 
         return view('frontend.' . get_setting('homepage_select') . '.partials.newest_products_section', compact('newest_products'));
     }

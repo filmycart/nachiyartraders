@@ -52,6 +52,22 @@
                             <small class="text-muted">{{ translate('Minimum dimensions required: 32px width X 32px height.') }}</small>
                         </div>
                     </div>
+                    <!-- Favicon -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-from-label">{{ translate('Favicon') }}</label>
+                        <div class="col-md-8">
+                            <div class="input-group " data-toggle="aizuploader" data-type="image">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-soft-secondary">{{ translate('Browse') }}</div>
+                                </div>
+                                <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                <input type="hidden" name="types[]" value="fav_icon">
+                                <input type="hidden" name="fav_icon" value="{{ get_setting('fav_icon') }}" class="selected-files">
+                            </div>
+                            <div class="file-preview box"></div>
+                            <small class="text-muted">{{ translate('Minimum dimensions required: 32px width X 32px height.') }}</small>
+                        </div>
+                    </div>
                     <!-- System Logo - White -->
                     <div class="form-group row">
                         <label class="col-sm-3 col-from-label">{{translate('System Logo - White')}}</label>
