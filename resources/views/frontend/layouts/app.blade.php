@@ -970,28 +970,28 @@
     @endif
 
     <script>
-function fixSlickVisibility() {
-    $('.slick-slide').css('visibility', 'visible');
-    $('.slick-track').css('opacity', '1');
-}
+        function fixSlickVisibility() {
+            $('.slick-slide').css('visibility', 'visible');
+            $('.slick-track').css('opacity', '1');
+        }
 
-// Call after fullscreen exit
-$(window).on('resize', function() {
-    setTimeout(function() {
-        $('.product-gallery').slick('setPosition');
-        $('.product-gallery-thumb').slick('setPosition');
-        fixSlickVisibility();
-    }, 300);
-});
+        // Call after fullscreen exit
+        $(window).on('resize', function() {
+            setTimeout(function() {
+                $('.product-gallery').slick('setPosition');
+                $('.product-gallery-thumb').slick('setPosition');
+                fixSlickVisibility();
+            }, 300);
+        });
 </script>
 
 <script>
-$(window).on('resize', function() {
-    setTimeout(function() {
-        $('.product-gallery').slick('setPosition');
-        $('.product-gallery-thumb').slick('setPosition');
-    }, 300); // delay gives time for fullscreen exit to finish
-});
+    $(window).on('resize', function() {
+        setTimeout(function() {
+            $('.product-gallery').slick('setPosition');
+            $('.product-gallery-thumb').slick('setPosition');
+        }, 300); // delay gives time for fullscreen exit to finish
+    });
 </script>
 
     @yield('script')

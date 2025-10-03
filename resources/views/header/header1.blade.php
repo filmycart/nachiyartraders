@@ -327,6 +327,12 @@
                             @endauth
                         </li>
                     </ul>
+                    <!-- Cart -->
+                    <div class="d-none d-lg-block mr-3">
+                        <div class="" id="cart_items">
+                            @include('frontend.partials.cart')
+                        </div>
+                    </div>
                 @endif
 
                 <div class="d-none d-xl-block ml-auto mr-0">
@@ -349,8 +355,14 @@
                         </span>
                     @else
                         <!--Login & Registration -->
-                        <span class="d-flex align-items-center nav-user-info ml-3">
-                            <!-- Image -->
+                        <div class="dropdown">
+                            <div class="dropbtn">{{ translate('Login')}}</div>
+                            <div class="dropdown-content">
+                                <a href="{{ route('user.login') }}">{{ translate('Sign In')}}</a>
+                                <a href="{{ route('user.registration') }}">{{ translate('Sign Up')}}</a>
+                            </div>
+                        </div>
+                        <!-- <span class="d-flex align-items-center nav-user-info ml-3">
                             <span
                                 class="size-40px rounded-circle overflow-hidden border d-flex align-items-center justify-content-center nav-user-img middle-text-color-visibility" style="color: {{ $middleHeaderTextColor }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012"
@@ -365,7 +377,7 @@
                             <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
                                 {{-- <a href="{{ route('user.registration') }}" --}}
                                 class="opacity-60 hov-opacity-100 fs-12 d-inline-block py-2 pl-2 middle-text-color-visibility" style="color: {{ $middleHeaderTextColor }}">{{ translate('Registration') }}</a>
-                        </span>
+                        </span> -->
                     @endauth
                 </div>
             </div>
