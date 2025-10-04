@@ -1,99 +1,140 @@
-<!-- aiz-main-wrapper -->
-<div class="aiz-main-wrapper d-flex flex-column justify-content-md-center bg-white">
-    <section class="bg-white overflow-hidden">
-        <div class="row">
-            <div class="col-xxl-6 col-xl-9 col-lg-10 col-md-7 mx-auto py-lg-4">
-                <div class="card shadow-none rounded-0 border-0">
-                    <div class="row no-gutters">
-                        <!-- Left Side Image-->
-                        <div class="col-lg-6">
-                            <img src="{{ uploaded_asset(get_setting('forgot_password_page_image')) }}" alt="{{ translate('Forgot Password Page Image') }}" class="img-fit h-100">
-                        </div>
+@extends('frontend.layouts.app')
 
-                        <div class="col-lg-6 p-4 p-lg-5 d-flex flex-column justify-content-center border right-content" style="height: auto;">
-                            <!-- Site Icon -->
-                            <div class="size-48px mb-3 mx-auto mx-lg-0">
-                                <img src="{{ uploaded_asset(get_setting('site_icon')) }}" alt="{{ translate('Site Icon')}}" class="img-fit h-100">
-                            </div>
+@section('content')
 
-                            <!-- Titles -->
-                            <div class="text-center text-lg-left">
-                                <h1 class="fs-20 fs-md-20 fw-700 text-primary" style="text-transform: uppercase;">{{ translate('Forgot password?') }}</h1>
-                                <h5 class="fs-14 fw-400 text-dark">
-                                    {{ addon_is_activated('otp_system') ? 
-                                        translate('Enter your email address or phone number to recover your password.') :
-                                            translate('Enter your email address to recover your password.') }}
-                                </h5>
-                            </div>
+    <div class="py-10" style="background-color: #F2F3F8 !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-5 col-xl-6 col-md-8 mx-auto">
+                    <div class="bg-white rounded shadow-sm p-4 text-left">
+                        <h1 class="h3 fw-600">{{ translate('Forgot Password?') }}</h1>
+                        <p class="mb-4 opacity-60">{{ translate('Enter your email address to recover your password.') }}
+                        </p>
+                        <form method="POST" action="{{ route('password.email') }}">
+                            @csrf
+                            <div class="form-group">
 
-                            <!-- Send password reset link or code form -->
-                            <div class="pt-3">
-                                <div class="">
-                                    <form class="form-default" id="forgot-pass-form" role="form" action="{{ route('password.email') }}" method="POST">
-                                        @csrf
-                                        
-                                        <!-- Email or Phone -->
-                                        @if (addon_is_activated('otp_system'))
-                                            <div class="form-group phone-form-group mb-1">
-                                                <label for="phone" class="fs-12 fw-700 text-soft-dark">{{  translate('Phone') }}</label>
-                                                <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }} rounded-0" value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
-                                            </div>
+                                @if (addon_is_activated('otp_system'))
+                                    <div class="form-group phone-form-group mb-1">
+                                        <input type="tel" id="phone-code"
+                                            class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                            value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
+                                    </div>
 
-                                            <input type="hidden" name="country_code" value="">
-                                            
-                                            <div class="form-group email-form-group mb-1 d-none">
-                                                <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label>
-                                                <input type="email" class="form-control rounded-0 {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('johndoe@example.com') }}" name="email" id="email" autocomplete="off">
-                                                @if ($errors->has('email'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                            
-                                            <div class="form-group text-right">
-                                                <button class="btn btn-link p-0 text-primary" type="button" onclick="toggleEmailPhone(this)"><i>*{{ translate('Use Email Instead') }}</i></button>
-                                            </div>
-                                        @else
-                                            <div class="form-group">
-                                                <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label>
-                                                <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} rounded-0" value="{{ old('email') }}" placeholder="{{  translate('johndoe@example.com') }}" name="email" id="email" autocomplete="off">
-                                                @if ($errors->has('email'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
+                                    <input type="hidden" name="country_code" value="">
+
+                                    <div class="form-group email-form-group mb-1 d-none">
+                                        <input type="email"
+                                            class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                            value="{{ old('email') }}" placeholder="{{ translate('Email') }}"
+                                            name="email" id="email" autocomplete="off">
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
                                         @endif
-                                         <!-- Recaptcha -->
-                                            @if(get_setting('google_recaptcha') == 1 && get_setting('recaptcha_forgot_password') == 1)
-                                                
-                                                @if ($errors->has('g-recaptcha-response'))
-                                                    <span class="border invalid-feedback rounded p-2 mb-3 bg-danger text-white" role="alert" style="display: block;">
-                                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                                    </span>
-                                                @endif
-                                            @endif
+                                    </div>
 
+                                    <div class="form-group text-right">
+                                        <button class="btn btn-link p-0 opacity-50 text-reset" type="button"
+                                            onclick="toggleEmailPhone(this)">{{ translate('Use Email Instead') }}</button>
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <input type="email"
+                                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                            value="{{ old('email') }}" placeholder="{{ translate('Email') }}"
+                                            name="email" id="email" autocomplete="off">
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
 
-                                        <!-- Submit Button -->
-                                        <div class="mb-4 mt-4">
-                                            <button type="submit" class="btn btn-primary btn-block fw-700 fs-14 rounded-0">{{ translate('Send Password Reset Code') }}</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary btn-block" type="submit">
+                                    {{ translate('Send Password Reset Link') }}
+                                </button>
+                            </div>
+                        </form>
+                        <div class="mt-3">
+                            <a href="{{ route('user.login') }}"
+                                class="text-reset opacity-60">{{ translate('Back to Login') }}</a>
                         </div>
-                    </div>
-                    <!-- Go Back -->
-                    <div class="mt-3 mr-4 mr-md-0">
-                        <a href="{{ url()->previous() }}" class="ml-auto fs-14 fw-700 d-flex align-items-center text-primary" style="max-width: fit-content;">
-                            <i class="las la-arrow-left fs-20 mr-1"></i>
-                            {{ translate('Back to Previous Page')}}
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+
+
+@endsection
+
+
+@section('script')
+    <script type="text/javascript">
+        var isPhoneShown = true,
+            countryData = window.intlTelInputGlobals.getCountryData(),
+            input = document.querySelector("#phone-code");
+
+        for (var i = 0; i < countryData.length; i++) {
+            var country = countryData[i];
+            if (country.iso2 == 'bd') {
+                country.dialCode = '88';
+            }
+        }
+
+        var iti = intlTelInput(input, {
+            separateDialCode: true,
+            utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+            onlyCountries: @php
+                echo json_encode(
+                    \App\Models\Country::where('status', 1)
+                        ->pluck('code')
+                        ->toArray(),
+                );
+            @endphp,
+            customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                if (selectedCountryData.iso2 == 'bd') {
+                    return "01xxxxxxxxx";
+                }
+                return selectedCountryPlaceholder;
+            }
+        });
+
+        var country = iti.getSelectedCountryData();
+        $('input[name=country_code]').val(country.dialCode);
+
+        input.addEventListener("countrychange", function(e) {
+            // var currentMask = e.currentTarget.placeholder;
+
+            var country = iti.getSelectedCountryData();
+            $('input[name=country_code]').val(country.dialCode);
+
+        });
+
+        function toggleEmailPhone(el) {
+            if (isPhoneShown) {
+                $('.phone-form-group').addClass('d-none');
+                $('.email-form-group').removeClass('d-none');
+                $('input[name=phone]').val(null);
+                isPhoneShown = false;
+                $(el).html('{{ translate('Use Phone Instead') }}');
+            } else {
+                $('.phone-form-group').removeClass('d-none');
+                $('.email-form-group').addClass('d-none');
+                $('input[name=email]').val(null);
+                isPhoneShown = true;
+                $(el).html('{{ translate('Use Email Instead') }}');
+            }
+        }
+    </script>
+@endsection
