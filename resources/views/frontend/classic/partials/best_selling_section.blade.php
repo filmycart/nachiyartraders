@@ -3,7 +3,7 @@
 @endphp
 @if (get_setting('best_selling') == 1 && count($best_selling_products) > 0)
     <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-        <div class="container">
+        <div class="container2">
             <!-- Top Section -->
             <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
                 <!-- Title -->
@@ -22,7 +22,7 @@
                     @foreach ($best_selling_products as $key => $product)
                         <!-- <div class="carousel-box px-3 position-relative has-transition hov-animate-outline border-right border-top border-bottom @if($key == 0) border-left @endif"> -->
                         <div class="carousel-box px-3 position-relative has-transition border-right border-top border-bottom border-left hov-animate-outline rounded">    
-                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
+                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_2',['product' => $product])
                         </div>
                     @endforeach
                 </div>

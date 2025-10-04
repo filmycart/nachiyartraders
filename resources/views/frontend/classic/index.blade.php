@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="aiz-main-wrapper d-flex flex-column">
-        <div class="home-banner-area mb-4 pt-2">
-            <div class=" col-lg-12 ">
+        <div class="home-banner-area mb-4">
+            <div class=" col-lg-12 pt-2">
                 <div class="px-1 py-1 px-md-1 py-md-1 bg-white shadow-sm rounded">
-                    <div class="d-flex mb-3 align-items-baseline">                        
+                    <div class="d-flex mb-1 align-items-baseline">                        
                         <div class="bg-white border-gray-200 py-1">
                             <div class="col-lg-3 position-static d-none d-lg-block">
                                 @include('frontend.partials.category_menu_new')
@@ -14,12 +14,12 @@
                     </div>    
                 </div>
             </div>
-            <div class=" col-lg-12 ">&nbsp;</div>
+            <!-- <div class=" col-lg-12 ">&nbsp;</div> -->
             <!-- <div class="container">
                 <div class="row gutters-10 position-relative"> -->
                     @php $lang = get_system_language()->code; @endphp
                     @if (get_setting('home_slider_images', null, $lang) != null)
-                        <div class=" col-lg-12 ">
+                        <div class=" col-lg-12 pt-2">
                             <div class="aiz-carousel dots-inside-bottom mobile-img-auto-height" data-arrows="true" data-dots="true" data-autoplay="true">
                                 @php
                                     $decoded_slider_images = json_decode(
@@ -51,8 +51,8 @@
                     @endif                        
                 <!-- </div>
             </div>    -->
-            <div class=" col-lg-12 ">&nbsp;</div>
-            <div class=" col-lg-12 ">
+            <!-- <div class=" col-lg-12 ">&nbsp;</div> -->
+            <div class="col-lg-12 pt-2">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3">                        
                         <!-- New Products -->
@@ -60,7 +60,7 @@
                     </div>    
                 </div>
             </div>
-<!--             <div class=" col-lg-12 ">&nbsp;</div>
+            <!-- <div class=" col-lg-12 ">&nbsp;</div>
             <div class=" col-lg-12 ">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3">                        
@@ -68,8 +68,8 @@
                     </div>    
                 </div>
             </div> -->
-            <div class=" col-lg-12 ">&nbsp;</div>
-            <div class=" col-lg-12 ">
+           <!--  <div class=" col-lg-12 ">&nbsp;</div> -->
+            <div class=" col-lg-12 pt-2">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3">                        
                         <!-- Best Selling  -->
@@ -77,8 +77,8 @@
                     </div>    
                 </div>
             </div>
-            <div class=" col-lg-12 ">&nbsp;</div>
-            <div class=" col-lg-12 ">
+            <!-- <div class=" col-lg-12 ">&nbsp;</div> -->
+            <div class=" col-lg-12 pt-2">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3 align-items-baseline">                        
                         <style>
@@ -131,7 +131,6 @@
                                         <span id="simple-secs">00</span> sec
                                     </div>
                                 </div>
-
                                 <div class="row gutters-5 gutters-md-16">
                                     <!-- Flash Deals Baner & Countdown -->
                                     <div class="flash-deals-baner col-xxl-4 col-lg-5 col-6 h-200px h-md-400px h-lg-475px">
@@ -201,8 +200,8 @@
                     </div>    
                 </div>
             </div>
-            <div class=" col-lg-12 ">&nbsp;</div>
-            <div class=" col-lg-12 ">
+            <!-- <div class=" col-lg-12 ">&nbsp;</div> -->
+            <div class=" col-lg-12 pt-2">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3 align-items-baseline">                        
                         <!-- Featured Categories -->
@@ -272,25 +271,20 @@
             </div>
             <!-- Top Brands -->
             @if (get_setting('top_brands') != null)
-            <div class=" col-lg-12 ">&nbsp;</div>
+            <!-- <div class=" col-lg-12 ">&nbsp;</div>
             <div class=" col-lg-12 ">
                 <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
                     <div class="d-flex mb-3 align-items-baseline border-bottom">                    
                     <section class="mb-2 mb-md-3 mt-2 mt-md-3">
                         <div class="container">
-                            <!-- Top Section -->
                             <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                                <!-- Title -->
                                 <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">{{ translate('Top Brands') }}</h3>
-                                <!-- Links -->
                                 <div class="d-flex">
                                     <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary"
                                         href="{{ route('brands.all') }}">{{ translate('View All Brands') }}</a>
                                 </div>
                             </div>
-                            <!-- Brands Section -->
                             <div class="bg-white px-sm-3 px-0">
-                                <!-- Desktop Grid (hidden on mobile) -->
                                 <div
                                     class="row row-cols-xxl-6 row-cols-xl-6 row-cols-lg-4 row-cols-md-4 row-cols-3 gutters-16 border-top border-left d-none d-sm-flex">
                                     @php
@@ -312,8 +306,6 @@
                                     </div>
                                     @endforeach
                                 </div>
-
-                                <!-- Mobile Slider (hidden on desktop) -->
                                 <div class="d-sm-none aiz-carousel arrow-x-0 arrow-inactive-none" data-items="5" data-xxl-items="5"
                                     data-xl-items="4" data-lg-items="3.4" data-md-items="2.5" data-sm-items="2" data-xs-items="2.5"
                                     data-arrows="true" data-dots="false">
@@ -336,7 +328,7 @@
                     </section>
                     </div>    
                 </div>
-            </div>
+            </div> -->
             @endif
         </div>      
     </div>

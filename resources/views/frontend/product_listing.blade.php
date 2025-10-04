@@ -35,8 +35,19 @@
 @endsection
 
 @section('content')
-
-    <section class="mb-4 pt-4">
+    
+    <section class="mb-2 pt-2 aiz-main-wrapper">
+        <div class=" col-lg-12">
+            <div class="px-1 py-1 px-md-1 py-md-1 bg-white shadow-sm rounded">
+                <div class="d-flex mb-1 align-items-baseline">                        
+                    <div class="bg-white border-gray-200 py-1">
+                        <div class="col-lg-3 position-static d-none d-lg-block">
+                            @include('frontend.partials.category_menu_new')
+                        </div>
+                    </div> 
+                </div>    
+            </div>
+        </div>
         <div class="container sm-px-0 pt-2">
             <form class="" id="search-form" action="" method="GET">
                 <div class="row">
@@ -152,7 +163,7 @@
                                         </div>
                                 @else
                                     <!-- Categories -->
-                                    <div class="bg-white border mb-3">
+                                    <div class="bg-white border mb-2">
                                         <div class="fs-16 fw-700 p-3">
                                             <a href="#collapse_1" class="dropdown-toggle filter-section text-dark d-flex align-items-center justify-content-between" data-toggle="collapse">
                                                 {{ translate('Categories')}}
@@ -203,7 +214,7 @@
                                     </div>
 
                                     <!-- Price range -->
-                                    <div class="bg-white border mb-3">
+                                    <div class="bg-white border mb-2">
                                         <div class="fs-16 fw-700 p-3">
                                             {{ translate('Price range')}}
                                         </div>
@@ -253,7 +264,7 @@
                                     
                                     <!-- Attributes -->
                                     @foreach ($attributes as $attribute)
-                                        <div class="bg-white border mb-3">
+                                        <div class="bg-white border mb-2">
                                             <div class="fs-16 fw-700 p-3">
                                                 <a href="#" class="dropdown-toggle text-dark filter-section collapsed d-flex align-items-center justify-content-between" 
                                                     data-toggle="collapse" data-target="#collapse_{{ str_replace(' ', '_', $attribute->name) }}" style="white-space: normal;">
@@ -425,15 +436,13 @@
                         
                         <!-- Products -->
                         <div class="px-3">
-                            <div class="row gutters-16 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-4 row-cols-md-3 row-cols-2 border-top border-left">
+                            <div class="row gutters-16 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
                                 @foreach ($products as $key => $product)
-                                    <div class="col border-right border-bottom has-transition hov-shadow-out z-1">
-                                        @if(isset($product_type) && $product_type == 'preorder_product')
-                                            @include('preorder.frontend.product_box3',['product' => $product])
-                                            @else
-                                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
-                                            @endif
-                                    </div>
+                                    @if(isset($product_type) && $product_type == 'preorder_product')
+                                        @include('preorder.frontend.product_box3',['product' => $product])
+                                        @else
+                                        @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
