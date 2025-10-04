@@ -330,7 +330,7 @@
                     <!-- Cart -->
                     <div class="d-none d-lg-block mr-3">
                         <div class="" id="cart_items">
-                            @include('frontend.partials.cart')
+                            @include('frontend.partials.cart.cart')
                         </div>
                     </div>
                 @endif

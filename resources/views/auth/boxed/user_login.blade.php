@@ -1,227 +1,209 @@
-@extends('auth.layouts.authentication')
+@extends('frontend.layouts.app')
 
 @section('content')
-    <!-- aiz-main-wrapper -->
-    <div class="aiz-main-wrapper d-flex flex-column justify-content-md-center bg-white">
-        <section class="bg-white overflow-hidden">
-            <div class="row">
-                <div class="col-xxl-6 col-xl-9 col-lg-10 col-md-7 mx-auto py-lg-4">
-                    <div class="card shadow-none rounded-0 border-0">
-                        <div class="row no-gutters">
-                            <!-- Left Side Image-->
-                            <div class="col-lg-6">
-                                <img src="{{ uploaded_asset(get_setting('customer_login_page_image')) }}" alt="{{ translate('Customer Login Page Image') }}" class="img-fit h-100">
+    <section class="gry-bg py-5">
+        <div class="profile">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
+                        <div class="card">
+                            <div class="text-center pt-4">
+                                <h1 class="h4 fw-600">
+                                    {{ translate('Login to your account.')}}
+                                </h1>
                             </div>
 
-                            <!-- Right Side -->
-                            <div class="col-lg-6 p-4 p-lg-5 d-flex flex-column justify-content-center border right-content" style="height: auto;">
-                                <!-- Site Icon -->
-                                <div class="size-48px mb-3 mx-auto mx-lg-0">
-                                    <img src="{{ uploaded_asset(get_setting('site_icon')) }}" alt="{{ translate('Site Icon')}}" class="img-fit h-100">
-                                </div>
+                            <div class="px-4 py-3 py-lg-4">
+                                <div class="">
+                                    <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
+                                        @csrf
+                                        @if (addon_is_activated('otp_system') && env("DEMO_MODE") != "On")
+                                            <div class="form-group phone-form-group mb-1">
+                                                <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
+                                            </div>
 
-                                <!-- Titles -->
-                                <div class="text-center text-lg-left">
-                                    <h1 class="fs-20 fs-md-24 fw-700 text-primary" style="text-transform: uppercase;">{{ translate('Welcome Back !')}}</h1>
-                                    <h5 class="fs-14 fw-400 text-dark">{{ translate('Login to your account')}}</h5>
-                                </div>
+                                            <input type="hidden" name="country_code" value="">
 
-                                <!-- Login form -->
-                                <div class="pt-3">
-                                    <div class="">
-                                        <form class="form-default loginForm" id="user-login-form"role="form" action="{{ route('login') }}" method="POST">
-                                            @csrf
-                                            
-                                            <!-- Email or Phone -->
-                                            @if (addon_is_activated('otp_system'))
-                                                <div class="form-group phone-form-group mb-1">
-                                                    <label for="phone" class="fs-12 fw-700 text-soft-dark">{{  translate('Phone') }}</label>
-                                                    <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }} rounded-0" value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
-                                                </div>
+                                            <div class="form-group email-form-group mb-1 d-none">
+                                                <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" id="email" autocomplete="off">
+                                                @if ($errors->has('email'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
 
-                                                <input type="hidden" name="country_code" value="">
-                                                
-                                                <div class="form-group email-form-group mb-1 d-none">
-                                                    <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label>
-                                                    <input type="email" class="form-control rounded-0 {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('johndoe@example.com') }}" name="email" id="email" autocomplete="off">
-                                                    @if ($errors->has('email'))
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('email') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                
-                                                <div class="form-group text-right">
-                                                    <button class="btn btn-link p-0 text-primary fs-12 fw-400" type="button" onclick="toggleEmailPhone(this)"><i>*{{ translate('Use Email Instead') }}</i></button>
-                                                </div>
-                                            @else
-                                                <div class="form-group">
-                                                    <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label>
-                                                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} rounded-0" value="{{ old('email') }}" placeholder="{{  translate('johndoe@example.com') }}" name="email" id="email" autocomplete="off">
-                                                    @if ($errors->has('email'))
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('email') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
+                                            <div class="form-group text-right">
+                                                <button class="btn btn-link p-0 opacity-50 text-reset" type="button" onclick="toggleEmailPhone(this)">{{ translate('Use Email Instead') }}</button>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" id="email" autocomplete="off">
+                                                @if ($errors->has('email'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @endif
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ translate('Password')}}" name="password" id="password">
+                                        </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <label class="aiz-checkbox">
+                                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    <span class=opacity-60>{{  translate('Remember Me') }}</span>
+                                                    <span class="aiz-square-check"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <a href="{{ route('password.request') }}" class="text-reset opacity-60 fs-14">{{ translate('Forgot password?')}}</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <button type="submit" class="btn btn-primary btn-block fw-600">{{  translate('Login') }}</button>
+                                        </div>
+                                    </form>
+
+                                    @if (env("DEMO_MODE") == "On")
+                                        <div class="mb-5">
+                                            <table class="table table-bordered mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ translate('Seller Account')}}</td>
+                                                        <td>
+                                                            <button class="btn btn-info btn-sm" onclick="autoFillSeller()">{{ translate('Copy credentials') }}</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ translate('Customer Account')}}</td>
+                                                        <td>
+                                                            <button class="btn btn-info btn-sm" onclick="autoFillCustomer()">{{ translate('Copy credentials') }}</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ translate('Delivery Boy Account')}}</td>
+                                                        <td>
+                                                            <button class="btn btn-info btn-sm" onclick="autoFillDeliveryBoy()">{{ translate('Copy credentials') }}</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @endif
+
+                                    @if(get_setting('google_login') == 1 || get_setting('facebook_login') == 1 || get_setting('twitter_login') == 1)
+                                        <div class="separator mb-3">
+                                            <span class="bg-white px-3 opacity-60">{{ translate('Or Login With')}}</span>
+                                        </div>
+                                        <ul class="list-inline social colored text-center mb-5">
+                                            @if (get_setting('facebook_login') == 1)
+                                                <li class="list-inline-item">
+                                                    <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="facebook">
+                                                        <i class="lab la-facebook-f"></i>
+                                                    </a>
+                                                </li>
                                             @endif
-                                            
-                                            <div class="password-login-block">
-                                                <!-- password -->
-                                                <div class="form-group">
-                                                    <label for="password" class="fs-12 fw-700 text-soft-dark">{{  translate('Password') }}</label>
-                                                    <div class="position-relative">
-                                                        <input type="password" class="form-control rounded-0 {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ translate('Password')}}" name="password" id="password">
-                                                        <i class="password-toggle las la-2x la-eye"></i>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Recaptcha -->
-                                                @if(get_setting('google_recaptcha') == 1 && get_setting('recaptcha_customer_login') == 1)
-                                                    
-                                                    @if ($errors->has('g-recaptcha-response'))
-                                                        <span class="border invalid-feedback rounded p-2 mb-3 bg-danger text-white" role="alert" style="display: block;">
-                                                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                @endif
-
-                                                <div class="row mb-2">
-                                                    <!-- Remember Me -->
-                                                    <div class="col-5">
-                                                        <label class="aiz-checkbox">
-                                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                            <span class="has-transition fs-12 fw-400 text-gray-dark hov-text-primary">{{  translate('Remember Me') }}</span>
-                                                            <span class="aiz-square-check"></span>
-                                                        </label>
-                                                    </div>
-                                                    <!-- Forgot password -->
-                                                    <div class="col-7 text-right">
-                                                        @if(get_setting('login_with_otp'))
-                                                            <a href="javascript:void(0);" class="text-reset fs-12 fw-400 text-gray-dark hov-text-primary toggle-login-with-otp" onclick="toggleLoginPassOTP(this)">{{ translate('Login With OTP') }} / </a>
-                                                        @endif
-                                                        <a href="{{ route('password.request') }}" class="text-reset fs-12 fw-400 text-gray-dark hov-text-primary"><u>{{ translate('Forgot password?')}}</u></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Submit Button -->
-                                            <div class="mb-4 mt-4">
-                                                <button type="submit" class="btn btn-primary btn-block fw-700 fs-14 rounded-0 submit-button">{{  translate('Login') }}</button>
-                                            </div>
-                                        </form>
-
-                                        <!-- DEMO MODE -->
-                                        @if (env("DEMO_MODE") == "On")
-                                            <div class="mb-4">
-                                                <table class="table table-bordered mb-0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>{{ translate('Customer Account')}}</td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-info btn-sm" onclick="autoFillCustomer()">{{ translate('Copy credentials') }}</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @endif
-
-                                        <!-- Social Login -->
-                                        @if(get_setting('google_login') == 1 || get_setting('facebook_login') == 1 || get_setting('twitter_login') == 1 || get_setting('apple_login') == 1)
-                                            <div class="text-center mb-3">
-                                                <span class="bg-white fs-12 text-gray">{{ translate('Or Login With')}}</span>
-                                            </div>
-                                            <ul class="list-inline social colored text-center mb-4">
-                                                @if (get_setting('facebook_login') == 1)
-                                                    <li class="list-inline-item">
-                                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="facebook">
-                                                            <i class="lab la-facebook-f"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if(get_setting('google_login') == 1)
-                                                    <li class="list-inline-item">
-                                                        <a href="{{ route('social.login', ['provider' => 'google']) }}" class="google">
-                                                            <i class="lab la-google"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (get_setting('twitter_login') == 1)
-                                                    <li class="list-inline-item">
-                                                        <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="twitter">
-                                                            <i class="lab la-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (get_setting('apple_login') == 1)
-                                                    <li class="list-inline-item">
-                                                        <a href="{{ route('social.login', ['provider' => 'apple']) }}"
-                                                            class="apple">
-                                                            <i class="lab la-apple"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        @endif
-                                    </div>
-                                    
-
-                                    <!-- Register Now -->
-                                    <p class="fs-12 text-gray mb-0">
-                                        {{ translate('Dont have an account?')}}
-                                        <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}" class="ml-2 fs-14 fw-700 animate-underline-primary">{{ translate('Register Now')}}</a>
-                                        {{-- <a href="{{ route('user.registration') }}" class="ml-2 fs-14 fw-700 animate-underline-primary">{{ translate('Register Now')}}</a> --}}
-                                    </p>
+                                            @if(get_setting('google_login') == 1)
+                                                <li class="list-inline-item">
+                                                    <a href="{{ route('social.login', ['provider' => 'google']) }}" class="google">
+                                                        <i class="lab la-google"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                            @if (get_setting('twitter_login') == 1)
+                                                <li class="list-inline-item">
+                                                    <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="twitter">
+                                                        <i class="lab la-twitter"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    @endif
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-muted mb-0">{{ translate('Dont have an account?')}}</p>
+                                    <a href="{{ route('user.registration') }}">{{ translate('Register Now')}}</a>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Go Back -->
-                        <div class="mt-3 mr-4 mr-md-0">
-                            <a href="{{ url()->previous() }}" class="ml-auto fs-14 fw-700 d-flex align-items-center text-primary" style="max-width: fit-content;">
-                                <i class="las la-arrow-left fs-20 mr-1"></i>
-                                {{ translate('Back to Previous Page')}}
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 @endsection
 
 @section('script')
-    <script>
+    <script type="text/javascript">
+        var isPhoneShown = true,
+            countryData = window.intlTelInputGlobals.getCountryData(),
+            input = document.querySelector("#phone-code");
+
+        for (var i = 0; i < countryData.length; i++) {
+            var country = countryData[i];
+            if(country.iso2 == 'bd'){
+                country.dialCode = '88';
+            }
+        }
+
+        var iti = intlTelInput(input, {
+            separateDialCode: true,
+            utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+            onlyCountries: @php echo json_encode(\App\Models\Country::where('status', 1)->pluck('code')->toArray()) @endphp,
+            customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                if(selectedCountryData.iso2 == 'bd'){
+                    return "01xxxxxxxxx";
+                }
+                return selectedCountryPlaceholder;
+            }
+        });
+
+        var country = iti.getSelectedCountryData();
+        $('input[name=country_code]').val(country.dialCode);
+
+        input.addEventListener("countrychange", function(e) {
+            // var currentMask = e.currentTarget.placeholder;
+
+            var country = iti.getSelectedCountryData();
+            $('input[name=country_code]').val(country.dialCode);
+
+        });
+
+        function toggleEmailPhone(el){
+            if(isPhoneShown){
+                $('.phone-form-group').addClass('d-none');
+                $('.email-form-group').removeClass('d-none');
+                $('input[name=phone]').val(null);
+                isPhoneShown = false;
+                $(el).html('{{ translate('Use Phone Instead') }}');
+            }
+            else{
+                $('.phone-form-group').removeClass('d-none');
+                $('.email-form-group').addClass('d-none');
+                $('input[name=email]').val(null);
+                isPhoneShown = true;
+                $(el).html('{{ translate('Use Email Instead') }}');
+            }
+        }
+
+
+
+        function autoFillSeller(){
+            $('#email').val('seller@example.com');
+            $('#password').val('123456');
+        }
         function autoFillCustomer(){
             $('#email').val('customer@example.com');
             $('#password').val('123456');
         }
+        function autoFillDeliveryBoy(){
+            $('#email').val('deliveryboy@example.com');
+            $('#password').val('123456');
+        }
     </script>
-
-    @if(get_setting('google_recaptcha') == 1 && get_setting('recaptcha_customer_login') == 1)
-        <script src="https://www.google.com/recaptcha/api.js?render={{ env('CAPTCHA_KEY') }}"></script>
-        
-        <script type="text/javascript">
-                document.getElementById('user-login-form').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    grecaptcha.ready(function() {
-                        grecaptcha.execute(`{{ env('CAPTCHA_KEY') }}`, {action: 'register'}).then(function(token) {
-                            var input = document.createElement('input');
-                            input.setAttribute('type', 'hidden');
-                            input.setAttribute('name', 'g-recaptcha-response');
-                            input.setAttribute('value', token);
-                            e.target.appendChild(input);
-
-                            var actionInput = document.createElement('input');
-                            actionInput.setAttribute('type', 'hidden');
-                            actionInput.setAttribute('name', 'recaptcha_action');
-                            actionInput.setAttribute('value', 'recaptcha_customer_login');
-                            e.target.appendChild(actionInput);
-                            
-                            e.target.submit();
-                        });
-                    });
-                });
-        </script>
-    @endif
 @endsection
