@@ -1,4 +1,15 @@
-<div class="container">
+<div class=" col-lg-12">
+    <div class="px-1 py-1 px-md-1 py-md-1 bg-white shadow-sm rounded">
+        <div class="d-flex mb-1 align-items-baseline">                        
+            <div class="bg-white border-gray-200 py-1">
+                <div class="col-lg-3 position-static d-none d-lg-block">
+                    @include('frontend.partials.category_menu_new')
+                </div>
+            </div> 
+        </div>    
+    </div>
+</div>
+<div class="container pt-2 gry-bg">
     @php
         $cart_count = count($carts);
         $active_carts = $cart_count > 0 ? $carts->toQuery()->active()->get() : [];
@@ -283,12 +294,10 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Cart Summary -->
             <div class="col-lg-4 mt-lg-0 mt-4" id="cart_summary">
                 @include('frontend.partials.cart.cart_summary', ['proceed' => 1, 'carts' => $active_carts])
             </div>
-        </div>
+        </div>   
     @else
         <div class="row">
             <div class="col-xl-8 mx-auto">

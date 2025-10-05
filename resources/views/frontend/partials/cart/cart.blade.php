@@ -9,7 +9,7 @@
     }
 @endphp
 <!-- Cart button with cart count -->
-<a href="javascript:void(0)" class="d-flex align-items-center px-3 h-100" data-toggle="dropdown" data-display="static"
+<a href="javascript:void(0)" class="d-flex align-items-center px-1 h-100" data-toggle="dropdown" data-display="static"
     title="{{translate('Cart')}}">
     <span class="mr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20.562" viewBox="0 0 24 20.562"

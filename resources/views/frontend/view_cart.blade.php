@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Cart Details -->
-    <section class="my-4" id="cart-details">
+    <section class="my-2" id="cart-details">
         @include('frontend.partials.cart.cart_details', ['carts' => $carts])
     </section>
 

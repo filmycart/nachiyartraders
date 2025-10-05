@@ -328,6 +328,30 @@
     margin-left: auto;
 }
 
+@media (min-width: 344px) {
+    .container2 {
+        max-width: 305px;
+    }
+}
+
+@media (min-width: 360px) {
+    .container2 {
+        max-width: 315px;
+    }
+}
+
+@media (min-width: 412px) {
+    .container2 {
+        max-width: 366px;
+    }
+}
+
+@media (min-width: 540px) {
+    .container2 {
+        max-width:500px;
+    }
+}
+
 @media (min-width: 576px) {
     .container2 {
         max-width:540px
@@ -340,15 +364,33 @@
     }
 }
 
+@media (min-width: 820px) {
+    .container2 {
+        max-width:600px;
+    }
+}
+
+@media (min-width: 912px) {
+    .container2 {
+        max-width:832px;
+    }
+}
+
 @media (min-width: 992px) {
     .container2 {
-        max-width:960px
+        max-width:960px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container2 {
+        max-width:950px;
     }
 }
 
 @media (min-width: 1200px) {
     .container2 {
-        max-width:1200px
+        max-width:1200px;        
     }
 }
 
@@ -358,3 +400,36 @@
         padding-right: 16px !important;
         padding-left: 0px !important;
     }
+
+.gutters-15>.col, .gutters-15>[class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}    
+
+/* search input box */
+.search-input-box {
+    position: relative;
+    width: 100%;
+}
+
+.search-input-box>input {
+    border-radius: 21px;
+    overflow: hidden;
+    height: 40px;
+}
+
+.search-input-box>svg {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+[dir="rtl"] .search-input-box>svg {
+    right: auto;
+    left: 20px;
+}
+
+.search-input-box .form-control:focus {
+    border-width: 2px !important;
+    border-color: var(--primary) !important;
+}

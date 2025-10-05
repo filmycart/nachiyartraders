@@ -57,7 +57,7 @@
 
 @section('content')
     <section class="mb-4 pt-2 gry-bg">
-        <div class=" col-lg-12 ">
+        <div class=" col-lg-12">
             <div class="px-1 py-1 px-md-1 py-md-1 bg-white shadow-sm rounded">
                 <div class="d-flex mb-1 align-items-baseline">                        
                     <div class="bg-white border-gray-200 py-1">
@@ -71,70 +71,32 @@
         <div class="container pt-2">
             <div class="bg-white py-3">
                 <div class="row">
-                    <!-- Product Image Gallery -->
                     <div class="col-xl-5 col-lg-6 mb-4">
                         @include('frontend.product_details.image_gallery')
                     </div>
-
-                    <!-- Product Details -->
                     <div class="col-xl-7 col-lg-6">
                         @include('frontend.product_details.details')
                     </div>
                 </div>
-            </div>
+            </div>    
         </div>
-    </section>
-
-    <section class="mb-4 pt-2 gry-bg">
-        <div class="container">
-            @if ($detailedProduct->auction_product)
-                <!-- Reviews & Ratings -->
-                @include('frontend.product_details.review_section')
-                
-                <!-- Description, Video, Downloads -->
-                @include('frontend.product_details.description')
-                
-                <!-- Product Query -->
-                @include('frontend.product_details.product_queries')
-            @else
-                <div class="row gutters-16">
-                    <!-- Left side -->
-                    <div class="col-lg-3">
-                        <!-- Seller Info -->
-                        @include('frontend.product_details.seller_info')
-
-                        <!-- Top Selling Products -->
-                       <div class="d-none d-lg-block">
-                            @include('frontend.product_details.top_selling_products')
-                       </div>
-                    </div>
-
-                    <!-- Right side -->
-                    <div class="col-lg-9">
-                        
-                        <!-- Reviews & Ratings -->
-                        @include('frontend.product_details.review_section')
-
-                        <!-- Description, Video, Downloads -->
-                        @include('frontend.product_details.description')
-                        
-                        <!-- Frequently Bought products -->
-                        @include('frontend.product_details.frequently_bought_products')
-
-                        <!-- Product Query -->
-                        @include('frontend.product_details.product_queries')
-                        
-                        <!-- Top Selling Products -->
-                        <div class="d-lg-none">
-                             @include('frontend.product_details.top_selling_products')
-                        </div>
-
-                    </div>
+        <div class="container pt-3 gry-bg">
+            <div class="row gutters-15">
+                <div class="col-lg-3">
+                    @include('frontend.product_details.top_selling_products')
                 </div>
-            @endif
+                <div class="col-lg-9">
+                    @include('frontend.product_details.review_section')
+
+                    @include('frontend.product_details.description')
+                    
+                    @include('frontend.product_details.frequently_bought_products')
+
+                    @include('frontend.product_details.product_queries')
+                </div>
+            </div>    
         </div>
     </section>
-
 @endsection
 
 @section('modal')
