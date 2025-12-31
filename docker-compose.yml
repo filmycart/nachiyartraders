@@ -54,16 +54,6 @@ services:
     networks:
       - ntr_network  
 
-  npm:
-    image: node:20
-    container_name: ntr-npm
-    working_dir: /var/www/html
-    volumes:
-      - .:/var/www/html
-    command: ["npm", "run", "dev"]
-    networks:
-      - ntr_network
-
 volumes:
   db_data:
 
