@@ -17,6 +17,9 @@ COPY . /var/www/html
 # Set working directory
 WORKDIR /var/www/html
 
+# set the 'ServerName' directive 
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Set permissions for storage and bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
