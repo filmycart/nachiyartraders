@@ -5,7 +5,7 @@ FROM php:8.3-apache
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libjpeg62-turbo-dev libfreetype6-dev zip unzip libonig-dev libxml2-dev libzip-dev libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring pdo pdo_mysql zip intl opcache \
+    && docker-php-ext-install gd mbstring pdo pdo_mysql zip intl exif pcntl bcmath gd opcache \
     && a2enmod rewrite
 
 # Install Composer globally
